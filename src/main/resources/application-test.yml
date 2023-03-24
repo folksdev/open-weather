@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:weatherdb
+    username: ${TEST_DB_USER:test-db-user}
+    password: ${TEST_DB_PWD:test-db-pwd}
+  config:
+    import: optional:file:.env[.properties]
+
+weather-stack:
+  api-call-limit: 10
+  cache-ttl: 60000 #1 minute
+

@@ -1,0 +1,8 @@
+weather-stack:
+  api-call-limit: 1
+  cache-name: weathers
+  cache-ttl: 10000 #10 seconds
+
+spring:
+  config:
+    import: optional:file:.env[.properties]

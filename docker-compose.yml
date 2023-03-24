@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  app:
+    image: 'open-weather:latest'
+    build:
+      context: .
+    ports:
+      - "9595-9597:8080"
+    deploy:
+      mode: replicated
+      replicas: 3
+    networks:
+      - open-weather-network
+    environment:
+      - "WEATHER_STACK_API_KEY=${WEATHER_STACK_API_KEY}"
+      - "SPRING_PROFILES_ACTIVE=test"
+  prometheus:
+    image: prom/prometheus:v2.35.0
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./data/prometheus/config:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+    networks:
+      - open-weather-network
+  grafana:
+    image: grafana/grafana-oss:8.5.2
+    pull_policy: always
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SERVER_DOMAIN=localhost
+    networks:
+      - open-weather-network
+networks:
+  open-weather-network:
