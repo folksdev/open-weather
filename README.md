@@ -56,7 +56,7 @@ The application can be built and run by the `Docker` engine. The `Dockerfile` ha
 Please follow the below directions in order to build and run the application with Docker Compose;
 
 ```sh
-$ cd warehouse-software-assignment
+$ cd open-weather
 $ docker-compose up -d
 ```
 
@@ -75,7 +75,7 @@ Docker compose creates 3 replicas (instances) of the application on port range 9
 To build and run the application with `Maven`, please follow the directions below;
 
 ```sh
-$ cd warehouse-software-assignment
+$ cd open-weather
 $ mvn clean install
 $ mvn spring-boot:run
 ```
